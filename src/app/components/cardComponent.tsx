@@ -24,10 +24,10 @@ export default function Card({ cards }: CardProps) {
   const currentCard = cards[currentIndex];
 
   return (
-    <div className="w-[18rem] h-[32rem] bg-white relative rounded-[25px] custom:border">
+    <div className="w-[18rem] h-[30rem] bg-white relative rounded-[25px] custom:border">
       {/* Render only the current card */}
       <div className="w-full h-full left-0 top-0 absolute">
-        <div className="h-[74px] left-[49px] top-[90px] absolute w-full">
+        <div className="h-[74px] left-[49px] top-[76px] absolute w-full">
           <div className="left-0 top-0 absolute text-[#5d5c5c] text-xs font-semibold font-['Inter']">
             <h3>Name/Place:</h3>
           </div>
@@ -35,7 +35,7 @@ export default function Card({ cards }: CardProps) {
             <h4 className=' w-4/5'>{currentCard.name}</h4>
           </div>
         </div>
-        <div className="w-[200px] h-[132px] left-[44px] top-[263px] absolute">
+        <div className="w-[200px] h-[132px] left-[44px] top-[225px] absolute">
           <div className="left-[5px] top-0 absolute text-[#c12d2d] text-[1rem] font-semibold font-['Inter']">
             <h5>TABOO WORDS:</h5>
           </div>

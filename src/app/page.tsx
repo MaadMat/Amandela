@@ -49,8 +49,8 @@ export default function Home() {
   return (
     <div className="container flex flex-col justify-between w-screen items-center bg-[url('./images/amandela_taboo_card_game.webp')] bg-cover bg-center h-screen custom:bg-none">
       <nav className="flex justify-between absolute top-0 left-0 w-full">
-        <Image src={''} alt="Logo" className="px-5" />
-        <div>
+        <Image src={'/amandela.svg'} alt="Logo" className="px-5" width={98} height={98}/>
+        <div className="flex justify-center content-center mr-8 mt-3">
         <a href="./about" className=" px-5">About</a>
         <a href="./rules">Rules</a>
 
@@ -58,8 +58,8 @@ export default function Home() {
       </nav>
 
       <section className="flex flex-col justify-center items-center">
-        <h1 className="mt-20 text-3xl font-bold">TABOO</h1>
-        <h2 className="text-base mt-1 font-bold mb-4">Card Game</h2>
+        <h1 className="my-20 text-3xl font-bold">TABOO</h1>
+      
 
         <div ref={cardRef}>
           {randomCards.length > 0 ? <Card cards={randomCards} /> : 'loading'}
