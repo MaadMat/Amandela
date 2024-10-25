@@ -3,6 +3,7 @@ import Image from "next/image";
 import Card from "./components/cardComponent";
 import { useEffect, useState, useRef } from "react";
 import html2canvas from "html2canvas";
+import { Analytics } from "@vercel/analytics/react"
 
 type CardType = {
   name: string;
@@ -79,7 +80,7 @@ export default function Home() {
           </button>
         </div>
       </section>
-
+      <Analytics />
     </div>
   );
 }
