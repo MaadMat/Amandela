@@ -57,7 +57,7 @@ export default function Home() {
         </div>
       </nav>
 
-      <section className="flex flex-col justify-center items-center">
+      <section className="flex flex-col justify-center items-center w-[100vw] h-[85vh]">
         <h1 className="my-20 text-3xl font-bold">TABOO</h1>
       
 
