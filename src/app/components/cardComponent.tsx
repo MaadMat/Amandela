@@ -1,4 +1,5 @@
-import { useState } from 'react';
+/* eslint-disable prefer-rest-params */
+import { useState, useEffect } from 'react';
 import Image from "next/image";
 type CardProps = {
   cards: Array<{
@@ -10,7 +11,16 @@ type CardProps = {
 export default function Card({ cards }: CardProps) {
   // State to keep track of the currently visible card
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // Clarity tracking code with provided project ID
+      (function(c, l, a, r, i, t, y) {
+          c[a] = c[a] || function() { (c[a].q = c[a].q || []).push(arguments) };
+          t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+          y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+      })(window, document, "clarity", "script", "opbfflebom");
+    }
+  }, []);
   // Function to handle moving to the next card
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % cards.length);
