@@ -37,7 +37,7 @@ export default function Card({ cards }: CardProps) {
         </div>
         <div className="w-[200px] h-[132px] left-[44px] top-[225px] absolute">
           <div className="left-[5px] top-0 absolute text-[#c12d2d] text-[1rem] font-semibold font-['Inter']">
-            <h5>TABOO WORDS:</h5>
+            <h5>Forbidden Words:</h5>
           </div>
           <div className="left-0 top-[37px] absolute text-black text-base font-normal font-['Inter']">
             <ul className="list-disc ml-6">
