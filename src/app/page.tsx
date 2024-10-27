@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Card from "./components/cardComponent";
 import { useEffect, useState, useRef } from "react";
-import html2canvas from "html2canvas";
+//import html2canvas from "html2canvas";
 import { Analytics } from "@vercel/analytics/react"
 
 type CardType = {
@@ -34,7 +34,7 @@ export default function Home() {
     setRandomCards(getRandomUniqueCards(cards, 5));
   };
 
-  const handleDownload = () => {
+ /* const handleDownload = () => {
     if (cardRef.current) {
       html2canvas(cardRef.current).then((canvas) => {
         const link = document.createElement('a');
@@ -44,7 +44,7 @@ export default function Home() {
         link.click();
       });
     }
-  };
+  };*/
 
   return (
     <div className="container flex flex-col justify-between w-screen items-center bg-[url('./images/amandela_taboo_card_game.webp')] bg-cover bg-center h-screen custom:bg-none">
@@ -66,12 +66,12 @@ export default function Home() {
         </div>
 
         <div className="flex mt-10 space-x-4">
-          <button
+        {/*  <button
             onClick={handleDownload}
             className="bg-white border-[#090404] text-black rounded-[18px] border-solid border w-24 h-[2.5rem] text-sm"
           >
             Download
-          </button>
+          </button>*/}
           <button
             onClick={handleNewSet}
             className="bg-[#281b1b] font-bold text-white rounded-[18px] border-solid border w-24 h-[2.5rem] text-sm"
