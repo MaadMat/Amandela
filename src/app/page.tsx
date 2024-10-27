@@ -31,7 +31,7 @@ export default function Home() {
   }, []);
 
   const handleNewSet = () => {
-    setRandomCards(getRandomUniqueCards(cards, 5));
+    setRandomCards(getRandomUniqueCards(cards, 8));
   };
 
  /* const handleDownload = () => {
