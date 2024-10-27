@@ -67,13 +67,7 @@ export default function Card({ cards }: CardProps) {
       
      <p className="left-[258px] top-[23px] absolute text-black text-[14px] font-bold">A</p>
      <Image src='/images/spade-64.webp' alt='Ace of spade sign' width={24} height={24} className='left-[250.5px] top-[41px] absolute' />
-<div className="w-[193px] h-1.5 left-[40px] top-[30px] absolute">
-<div className={`${currentIndex === 0 ? 'bg-[#1e0f0f]' : 'bg-[#d9d9d9]'} w-[25px] h-1.5 left-0 top-0 absolute  rounded-[5px]`} />
-<div className={`${currentIndex === 1 ? 'bg-[#1e0f0f]' : 'bg-[#d9d9d9]'} w-[25px] h-1.5 left-[34px] top-0 absolute  rounded-[5px]`} />
-<div className={`${currentIndex === 2 ? 'bg-[#1e0f0f]' : 'bg-[#d9d9d9]'} w-[25px] h-1.5 left-[66px] top-0 absolute  rounded-[5px]`} />
-<div className={`${currentIndex === 3 ? 'bg-[#1e0f0f]' : 'bg-[#d9d9d9]'} w-[25px] h-1.5 left-[100px] top-0 absolute rounded-[5px]`} />
-<div className={`${currentIndex === 4 ? 'bg-[#1e0f0f]' : 'bg-[#d9d9d9]'} w-[25px] h-1.5 left-[135px] top-0 absolute rounded-[5px]`} />
-</div>
+
     </div>
   );
 }

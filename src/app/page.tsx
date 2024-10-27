@@ -25,7 +25,7 @@ export default function Home() {
       const response = await fetch('/api/cards', { cache: 'force-cache' });
       const data: CardType[] = await response.json();
       setCards(data);
-      setRandomCards(getRandomUniqueCards(data, 5));
+      setRandomCards(getRandomUniqueCards(data, 8));
     };
     fetchCards();
   }, []);
