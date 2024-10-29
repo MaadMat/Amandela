@@ -2,18 +2,23 @@
 import Image from "next/image";
 import Card from "./components/cardComponent";
 import { useEffect, useState, useRef } from "react";
-//import html2canvas from "html2canvas";
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react";
+import { getHistory, addHistoryEntry } from "./scripts/History"; // Import from History.ts
+
 
 type CardType = {
   name: string;
   Words: string[];
 };
 
+
+
 export default function Home() {
   const [cards, setCards] = useState<CardType[]>([]);
   const [randomCards, setRandomCards] = useState<CardType[]>([]);
-  const cardRef = useRef(null);
+  const [history, setHistory] = useState<CardType[][]>([]); // Change history type
+  const [showHistory, setShowHistory] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const getRandomUniqueCards = (cardsArray: CardType[], numCards: number): CardType[] => {
     const shuffled = [...cardsArray].sort(() => 0.5 - Math.random());
@@ -25,60 +30,93 @@ export default function Home() {
       const response = await fetch('/api/cards', { cache: 'force-cache' });
       const data: CardType[] = await response.json();
       setCards(data);
-      setRandomCards(getRandomUniqueCards(data, 8));
+      const initialSet = getRandomUniqueCards(data, 8);
+      setRandomCards(initialSet);
+      
+      // Fetch history from History.ts
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const initialHistory: any = await getHistory(); // Ensure this returns HistoryEntry[]
+      
+      setHistory(initialHistory); // Assign the fetched history
     };
     fetchCards();
   }, []);
+  
+  const handleNewSet = async () => {
+    const newSet = getRandomUniqueCards(cards, 8);
+  
+    setRandomCards(newSet);
 
-  const handleNewSet = () => {
-    setRandomCards(getRandomUniqueCards(cards, 8));
+
+    // Add new entry to history
+    addHistoryEntry(newSet);
+    // Update state with the new entry
+    setHistory((prevHistory) => [...prevHistory, newSet]); // This should now work
+    console.log(history,'history')
+    
+};
+
+
+
+  const toggleHistory = () => {
+    setShowHistory((prev) => !prev);
   };
-
- /* const handleDownload = () => {
-    if (cardRef.current) {
-      html2canvas(cardRef.current).then((canvas) => {
-        const link = document.createElement('a');
-        console.log(cardRef.current)
-        link.download = 'card.png';
-        link.href = canvas.toDataURL();
-        link.click();
-      });
-    }
-  };*/
 
   return (
     <div className="container flex flex-col justify-between w-screen items-center bg-[url('./images/amandela_taboo_card_game.webp')] bg-cover bg-center h-screen custom:bg-none">
       <nav className="flex justify-between absolute top-0 left-0 w-full">
-        <Image src={'/amandela.svg'} alt="Logo" className="px-5" width={98} height={98}/>
+        <Image src={'/amandela.svg'} alt="Logo" className="px-5" width={98} height={98} />
         <div className="flex justify-center content-center mr-8 mt-3">
-        <a href="./about" className=" px-5">About</a>
-        <a href="./rules">Rules</a>
-
+          <a href="./about" className="px-5">About</a>
+          <a href="./rules">Rules</a>
         </div>
       </nav>
 
       <section className="flex flex-col justify-center items-center w-[100vw] h-[85vh]">
         <h1 className="my-20 text-3xl font-bold">TABOO</h1>
-      
 
         <div ref={cardRef}>
-          {randomCards.length > 0 ? <Card cards={randomCards} /> : 'loading'}
+          {randomCards.length > 0 ? <Card cards={randomCards} /> : 'Loading...'}
         </div>
 
         <div className="flex mt-10 space-x-4">
-        {/*  <button
-            onClick={handleDownload}
-            className="bg-white border-[#090404] text-black rounded-[18px] border-solid border w-24 h-[2.5rem] text-sm"
-          >
-            Download
-          </button>*/}
           <button
             onClick={handleNewSet}
             className="bg-[#281b1b] font-bold text-white rounded-[18px] border-solid border w-24 h-[2.5rem] text-sm"
           >
             New Set
           </button>
+          <button
+            onClick={toggleHistory}
+            className="bg-[#281b1b] font-bold text-white rounded-[18px] border-solid border w-24 h-[2.5rem] text-sm"
+          >
+            {showHistory ? "Hide History" : "History"}
+          </button>
         </div>
+
+        {showHistory && (
+          <div className="mt-[10.25rem] p-4 bg-white rounded-lg shadow-lg max-h-[40rem] overflow-y-auto w-full max-w-[20rem] absolute">
+            <div className="flex justify-between content-center">
+              <h2 className="text-xl font-semibold mb-4">History of Sets</h2>
+              <button onClick={toggleHistory} 
+                className="bg-[#c82626] font-bold text-white rounded-[100%] border-solid border w-5 h-[20px] text-sm">
+                {showHistory ? "X" : ""}
+              </button>
+            </div>
+            {history.map((entry, index) => (
+              <div key={index} className="mb-3">
+                <h3 className="font-medium">Set {index + 1}</h3>
+                <Card cards={entry} /> {/* Accessing set property correctly */}
+              </div>
+            ))}
+            <button
+              onClick={toggleHistory}
+              className="bg-[#281b1b] font-bold text-white rounded-[18px] border-solid border w-24 h-[2.5rem] text-sm mx-[100px]"
+            >
+              {showHistory ? "Hide History" : "History"}
+            </button>
+          </div>
+        )}
       </section>
       <Analytics />
     </div>

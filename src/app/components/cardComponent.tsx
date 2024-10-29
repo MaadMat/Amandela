@@ -1,5 +1,5 @@
 /* eslint-disable prefer-rest-params */
-import { useState, } from 'react';
+import { useState } from 'react';
 import Image from "next/image";
 type CardProps = {
   cards: Array<{
@@ -11,7 +11,6 @@ type CardProps = {
 export default function Card({ cards }: CardProps) {
   // State to keep track of the currently visible card
   const [currentIndex, setCurrentIndex] = useState(0);
-
   // Function to handle moving to the next card
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % cards.length);
@@ -21,7 +20,6 @@ export default function Card({ cards }: CardProps) {
   const handleBack = () => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + cards.length) % cards.length);
   };
-
   const currentCard = cards[currentIndex];
 
   return (
@@ -33,6 +31,7 @@ export default function Card({ cards }: CardProps) {
             <h3>Name/Place:</h3>
           </div>
           <div className="left-0 top-[38px] absolute text-[#027fd8] text-[1.25rem] font-semibold font-['Inter'] w-[90%]">
+    
             <h4 className=' w-4/5'>{currentCard.name}</h4>
           </div>
         </div>
@@ -43,6 +42,7 @@ export default function Card({ cards }: CardProps) {
           <div className="left-0 top-[37px] absolute text-black text-base font-normal font-['Inter']">
             <ul className="list-disc ml-6">
               {currentCard.Words.map((word, wordIndex) => (
+                
                 <li key={wordIndex}>{word}</li>
               ))}
             </ul>
