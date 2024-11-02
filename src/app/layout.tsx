@@ -26,6 +26,7 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta httpEquiv="Content-Type" content="text/html;charset=UTF-8" />
+        <meta name="google-site-verification" content="bRft9M9ZYq4O01A6mf0uDqk2V7C3rA7_NNLl0a6WUWI" />
         <link rel="canonical" href="http://localhost:3000" />
        {/*
 
