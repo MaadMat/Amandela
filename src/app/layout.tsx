@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { GoogleAnalytics } from '@next/third-parties/google'
+import { GoogleTagManager } from "@next/third-parties/google";
 // Initialize the Inter font
 const inter = Inter({
   subsets: ["latin"],
@@ -36,6 +37,7 @@ export default function RootLayout({
         <SpeedInsights />
       </body>
       <GoogleAnalytics gaId="G-MHB18TXZWC"/>
+      <GoogleTagManager gtmId="G-MHB18TXZWC"/>
     </html>
   );
 }
