@@ -4,6 +4,7 @@ import Card from "./components/cardComponent";
 import { useEffect, useState, useRef } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import { getHistory, addHistoryEntry } from "./scripts/History"; // Import from History.ts
+import History from "./components/history";
 
 
 type CardType = {
@@ -73,7 +74,7 @@ export default function Home() {
       </nav>
 
       <section className="flex flex-col justify-center items-center w-[100vw] h-[85vh]">
-        <h1 className="my-20 text-3xl font-bold">TABOO</h1>
+        <h1 className="mt-16 mb-16 text-2xl font-bold">TABOO</h1>
 
         <div ref={cardRef}>
           {randomCards.length > 0 ? <Card cards={randomCards} /> : 'Loading...'}
@@ -88,7 +89,7 @@ export default function Home() {
           </button>
           <button
             onClick={toggleHistory}
-            className="bg-[#281b1b] font-bold text-white rounded-[18px] border-solid border w-24 h-[2.5rem] text-sm"
+            className="bg-white font-bold text-[#281b1b] rounded-[18px] border-solid border border-black w-24 h-[2.5rem] text-sm"
           >
             {showHistory ? "Hide History" : "History"}
           </button>
@@ -97,21 +98,16 @@ export default function Home() {
         {showHistory && (
           <div className="mt-[10.25rem] p-4 bg-white rounded-lg shadow-lg max-h-[40rem] overflow-y-auto w-full max-w-[20rem] absolute">
             <div className="flex justify-between content-center">
-              <h2 className="text-xl font-semibold mb-4">History of Sets</h2>
+              <h2 className="text-sm font-semibold mb-4 text-[#420607]">Recent Sets</h2>
               <button onClick={toggleHistory} 
                 className="bg-[#c82626] font-bold text-white rounded-[100%] border-solid border w-5 h-[20px] text-sm">
                 {showHistory ? "X" : ""}
               </button>
             </div>
-            {history.map((entry, index) => (
-              <div key={index} className="mb-3">
-                <h3 className="font-medium">Set {index + 1}</h3>
-                <Card cards={entry} /> {/* Accessing set property correctly */}
-              </div>
-            ))}
+            <History/>
             <button
               onClick={toggleHistory}
-              className="bg-[#281b1b] font-bold text-white rounded-[18px] border-solid border w-24 h-[2.5rem] text-sm mx-[100px]"
+              className="bg-white font-bold text-[#281b1b] rounded-[18px] border-solid border-[2px] w-24 h-[2.5rem] text-sm mx-[100px]"
             >
               {showHistory ? "Hide History" : "History"}
             </button>

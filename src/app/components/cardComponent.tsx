@@ -1,6 +1,5 @@
 /* eslint-disable prefer-rest-params */
 import { useState } from 'react';
-import Image from "next/image";
 type CardProps = {
   cards: Array<{
     name: string;
@@ -67,7 +66,32 @@ export default function Card({ cards }: CardProps) {
       </div>
       
      <p className="left-[258px] top-[23px] absolute text-black text-[14px] font-bold">A</p>
-     <Image src='/images/spade-64.webp' alt='Ace of spade sign' width={24} height={24} className='left-[250.5px] top-[41px] absolute' />
+     <div className='flex w-[60%] justify-around absolute top-8 left-8'>
+      <span className={`${
+            currentIndex === 0 ? 'bg-gray-500' : 'bg-gray-200'
+          } rounded-s-full border border-solid w-4 h-1`} ></span>
+      <span className={`${
+            currentIndex === 1 ? 'bg-gray-500' : 'bg-gray-200'
+          } rounded-s-full border border-solid w-4 h-1`} ></span>
+      <span className={`${
+            currentIndex === 2 ? 'bg-gray-500' : 'bg-gray-200'
+          } rounded-s-full border border-solid w-4 h-1`} ></span>
+      <span className={`${
+            currentIndex === 3 ? 'bg-gray-500' : 'bg-gray-200'
+          } rounded-s-full border border-solid w-4 h-1`} ></span>
+      <span className={`${
+            currentIndex === 4 ? 'bg-gray-500' : 'bg-gray-200'
+          } rounded-s-full border border-solid w-4 h-1`} ></span>
+      <span className={`${
+            currentIndex === 5 ? 'bg-gray-500' : 'bg-gray-200'
+          } rounded-s-full border border-solid w-4 h-1`} ></span>
+      <span className={`${
+            currentIndex === 6 ? 'bg-gray-500' : 'bg-gray-200'
+          } rounded-s-full border border-solid w-4 h-1`} ></span>
+      <span className={`${
+            currentIndex === 7 ? 'bg-gray-500' : 'bg-gray-200'
+          } rounded-s-full border border-solid w-4 h-1`} ></span>
+     </div>
     </div>
   );
 }
