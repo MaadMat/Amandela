@@ -28,7 +28,6 @@ export default function History() {
       timestamp: formatDate(set.timestamp), // Example timestamp; replace with real timestamp if available
     }));
     setHistory(historyWithTimestamp);
-    console.log(fetchedHistory)
   }, []);
 
   const handleSelectSet = (index: number) => {
