@@ -40,7 +40,7 @@ export default function History() {
   };
 
   return (
-    <div className="history-container h-[30rem]">
+    <div className="history-container h-[32rem] overflow-x-hidden">
       
       {/* Show the history list if no card set is selected */}
       {selectedSetIndex === null ? (
@@ -57,7 +57,7 @@ export default function History() {
                 ${index === selectedSetIndex ? 'bg-gray-200' : 'bg-white'}`}
               onClick={() => handleSelectSet(index)}
             >
-              <h3 className="font-medium line-clamp-1 w-1/2 text-[#027fd8] text-xs">{entry.cards[0].name}</h3>
+              <h3 className="font-medium line-clamp-1 w-[45%] text-[#027fd8] text-xs">{entry.cards[0].name}</h3>
               <p className="text-xs text-gray-600 pr-2 ">{entry.timestamp}</p>
               <p className='text-xs text-[#281b1b]'>View Set</p>
             </div>

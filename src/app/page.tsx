@@ -6,18 +6,16 @@ import { Analytics } from "@vercel/analytics/react";
 import { getHistory, addHistoryEntry } from "./scripts/History"; // Import from History.ts
 import History from "./components/history";
 
-
 type CardType = {
   name: string;
   Words: string[];
 };
 
 
-
 export default function Home() {
   const [cards, setCards] = useState<CardType[]>([]);
   const [randomCards, setRandomCards] = useState<CardType[]>([]);
-  const [history, setHistory] = useState<CardType[][]>([]); // Change history type
+  const [history, setHistory] = useState<CardType[][]>([]); 
   const [showHistory, setShowHistory] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -31,33 +29,37 @@ export default function Home() {
       const response = await fetch('/api/cards', { cache: 'force-cache' });
       const data: CardType[] = await response.json();
       setCards(data);
+
       const initialSet = getRandomUniqueCards(data, 8);
       setRandomCards(initialSet);
-      
-      // Fetch history from History.ts
+
+      // Fetch history and check if initial set already exists
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const initialHistory: any = await getHistory(); // Ensure this returns HistoryEntry[]
-      
-      setHistory(initialHistory); // Assign the fetched history
+      const initialHistory: any = await getHistory();
+      setHistory(initialHistory);
+
+      // Only add initial set to history if not present
+      const isInitialSetInHistory = initialHistory.some(
+        (entry:CardType[][]) => JSON.stringify(entry) === JSON.stringify(initialSet)
+      );
+      if (!isInitialSetInHistory) {
+        addHistoryEntry(initialSet);
+        setHistory((prevHistory) => [...prevHistory, initialSet]);
+      }
     };
+
     fetchCards();
   }, []);
-  
+
   const handleNewSet = async () => {
     const newSet = getRandomUniqueCards(cards, 8);
-  
     setRandomCards(newSet);
 
-
-    // Add new entry to history
+    // Add new entry to history and update state
     addHistoryEntry(newSet);
-    // Update state with the new entry
-    setHistory((prevHistory) => [...prevHistory, newSet]); // This should now work
-    console.log(history,'history')
-    
-};
-
-
+    setHistory((prevHistory) => [...prevHistory, newSet]);
+    console.log(history, 'history');
+  };
 
   const toggleHistory = () => {
     setShowHistory((prev) => !prev);
@@ -105,12 +107,7 @@ export default function Home() {
               </button>
             </div>
             <History/>
-            <button
-              onClick={toggleHistory}
-              className="bg-white font-bold text-[#281b1b] rounded-[18px] border-solid border-[2px] w-24 h-[2.5rem] text-sm mx-[100px]"
-            >
-              {showHistory ? "Hide History" : "History"}
-            </button>
+           
           </div>
         )}
       </section>

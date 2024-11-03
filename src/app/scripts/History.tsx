@@ -2,7 +2,7 @@
 
 type CardHistory = {
   set: { name: string; Words: string[] }[]; // Each history entry is an array of cards
-  timestamp: number;
+  timestamp: string; // Changed to string to match the format used in the original code
 };
 
 // Function to save a card set to history
@@ -13,12 +13,15 @@ export const addHistoryEntry = (set: { name: string; Words: string[] }[]) => {
   localStorage.setItem('cardHistory', JSON.stringify(newHistory));
 };
 
-// Function to get card set history from the last 24 hours
+// Function to get card set history and remove entries older than one hour
 export const getHistory = () => {
   const history = JSON.parse(localStorage.getItem('cardHistory') || '[]') as CardHistory[];
 
-  const oneFourHoursAgo = Date.now() - 1 * 60 * 60 * 1000;
-  return history
-    .filter(item => new Date(item.timestamp).getTime() > oneFourHoursAgo) // Filter out items older than 24 hours
-    .map(item => item); // Return only the sets for easier usage in the component
+  const oneHourAgo = Date.now() - 1 * 60 * 60 * 1000; // Adjusted for one hour
+  const filteredHistory = history.filter(item => new Date(item.timestamp).getTime() > oneHourAgo); // Filter out items older than one hour
+
+  // Update localStorage to remove old entries
+  localStorage.setItem('cardHistory', JSON.stringify(filteredHistory));
+
+  return filteredHistory.map(item => item); // Return only the sets for easier usage in the component
 };
