@@ -5,6 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import { getHistory, addHistoryEntry } from "./scripts/History"; // Import from History.ts
 import History from "./components/history";
+import SkeletonCard from "./components/SkeletonCard";
 
 type CardType = {
   name: string;
@@ -76,10 +77,10 @@ export default function Home() {
       </nav>
 
       <section className="flex flex-col justify-center items-center w-[100vw] h-[85vh]">
-        <h1 className="mt-16 mb-16 text-2xl font-bold">TABOO</h1>
+        <h1 className="mt-16 mb-16 text-sm font-bold">TABOO</h1>
 
         <div ref={cardRef}>
-          {randomCards.length > 0 ? <Card cards={randomCards} /> : 'Loading...'}
+          {randomCards.length > 0 ? <Card cards={randomCards} /> : <SkeletonCard/>}
         </div>
 
         <div className="flex mt-10 space-x-4">
