@@ -27,7 +27,7 @@ export default function Card({ cards }: CardProps) {
       <div className="w-full h-full left-0 top-0 absolute">
         <div className="h-[74px] left-[49px] top-[76px] absolute w-full">
           <div className="left-0 top-0 absolute text-[#5d5c5c] text-xs font-semibold font-['Inter']">
-            <h3>Name/Place:</h3>
+            <h3>Taboo:</h3>
           </div>
           <div className="left-0 top-[38px] absolute text-[#027fd8] text-[1.25rem] font-semibold font-['Inter'] w-[90%]">
     
