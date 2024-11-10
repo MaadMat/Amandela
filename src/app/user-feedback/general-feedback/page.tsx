@@ -10,7 +10,7 @@ export default function GeneralFeedback() {
     e.preventDefault();
 
     // Send form data to API
-    const res = await fetch('/api/submitSuggestion', {
+    const res = await fetch('/api/user-feedback/submitSuggestion', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title, type, suggestion }),
