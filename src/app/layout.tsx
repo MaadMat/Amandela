@@ -1,10 +1,11 @@
+
 import type { Metadata } from "next";
-//import { useEffect } from "react";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { GoogleAnalytics } from '@next/third-parties/google'
-import { GoogleTagManager } from "@next/third-parties/google";
+import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google'
+import Image from "next/image";
+
 // Initialize the Inter font
 const inter = Inter({
   subsets: ["latin"],
@@ -31,7 +32,18 @@ export default function RootLayout({
         <meta name="google-site-verification" content="bRft9M9ZYq4O01A6mf0uDqk2V7C3rA7_NNLl0a6WUWI" />
         <link rel="canonical" href="https://amandela-iut8.vercel.app/" />
       </head>
-      <body className={`${inter.className} antialiased  custom:bg-slate-100`}>
+      <body className={`${inter.className} antialiased  custom:bg-slate-100 bg-[#f2f2f2]`}>
+      <nav className="flex justify-between absolute top-0 left-0 w-full">
+        <a href="https://amandela-iut8.vercel.app/">
+<Image src={'/amandela.svg'} alt="amandela Logo" loading="eager" title="amandela logo" className="px-5" width={98} height={98} />
+        </a>
+        <div className="flex justify-around content-center  mt-3 text-sm w-[60vw]">
+          <a href="https://amandela-iut8.vercel.app/about" >About</a>
+          <a href="https://amandela-iut8.vercel.app/support" >Support</a>
+          <a href="https://amandela-iut8.vercel.app/updates" >Updates</a>
+          <a href="https://amandela-iut8.vercel.app/rules">Rules</a>
+        </div>
+      </nav>
         {children}
 
         <SpeedInsights />

@@ -1,25 +1,33 @@
 "use client";
-import Image from "next/image";
 import Card from "./components/cardComponent";
 import { useEffect, useState, useRef } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import { getHistory, addHistoryEntry } from "./scripts/History"; // Import from History.ts
 import History from "./components/history";
 import SkeletonCard from "./components/SkeletonCard";
+import DropdownMenu from "./components/supportPanel"
 
 type CardType = {
   name: string;
   Words: string[];
+  Category:string
 };
 
 
 export default function Home() {
   const [cards, setCards] = useState<CardType[]>([]);
   const [randomCards, setRandomCards] = useState<CardType[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [history, setHistory] = useState<CardType[][]>([]); 
   const [showHistory, setShowHistory] = useState(false);
+  const [currendEditedCard, setCurrentEditCard]= useState<CardType[]>([])
   const cardRef = useRef<HTMLDivElement>(null);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const getCurrentEditedCard = (card:any)=>{
+    setCurrentEditCard(card)
+
+  }
   const getRandomUniqueCards = (cardsArray: CardType[], numCards: number): CardType[] => {
     const shuffled = [...cardsArray].sort(() => 0.5 - Math.random());
     return shuffled.slice(0, numCards);
@@ -59,7 +67,6 @@ export default function Home() {
     // Add new entry to history and update state
     addHistoryEntry(newSet);
     setHistory((prevHistory) => [...prevHistory, newSet]);
-    console.log(history, 'history');
   };
 
   const toggleHistory = () => {
@@ -68,19 +75,13 @@ export default function Home() {
 
   return (
     <div className="container flex flex-col justify-between w-screen items-center bg-[url('./images/amandela_taboo_card_game.webp')] bg-cover bg-center h-screen custom:bg-none">
-      <nav className="flex justify-between absolute top-0 left-0 w-full">
-        <Image src={'/amandela.svg'} alt="Logo" className="px-5" width={98} height={98} />
-        <div className="flex justify-center content-center mr-8 mt-3">
-          <a href="./about" className="px-5">About</a>
-          <a href="./rules">Rules</a>
-        </div>
-      </nav>
+    
 
       <section className="flex flex-col justify-center items-center w-[100vw] h-[85vh]">
         <h1 className="mt-16 mb-16 text-sm font-bold">TABOO</h1>
 
         <div ref={cardRef}>
-          {randomCards.length > 0 ? <Card cards={randomCards} /> : <SkeletonCard/>}
+          {randomCards.length > 0 ? <Card cards={randomCards} setCurrentEditCard= {getCurrentEditedCard} /> : <SkeletonCard/>}
         </div>
 
         <div className="flex mt-10 space-x-4">
@@ -111,6 +112,7 @@ export default function Home() {
            
           </div>
         )}
+      <DropdownMenu currentCard={currendEditedCard}/>
       </section>
       <Analytics />
     </div>

@@ -1,16 +1,12 @@
 /* eslint-disable prefer-rest-params */
 import { useState } from 'react';
-type CardProps = {
-  cards: Array<{
-    name: string;
-    Words: string[];
-  }>;
-};
 
-export default function Card({ cards }: CardProps) {
-  // State to keep track of the currently visible card
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function Card( children:any ) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  // Function to handle moving to the next card
+  
+  const cards = children.cards
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % cards.length);
   };
@@ -20,10 +16,9 @@ export default function Card({ cards }: CardProps) {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + cards.length) % cards.length);
   };
   const currentCard = cards[currentIndex];
-
+children.setCurrentEditCard(currentCard)
   return (
     <div className="w-[18rem] h-[30rem] bg-white relative rounded-[25px] custom:border">
-      {/* Render only the current card */}
       <div className="w-full h-full left-0 top-0 absolute">
         <div className="h-[74px] left-[49px] top-[76px] absolute w-full">
           <div className="left-0 top-0 absolute text-[#5d5c5c] text-xs font-semibold font-['Inter']">
@@ -43,7 +38,7 @@ export default function Card({ cards }: CardProps) {
           </div>
           <div className="left-0 top-[37px] absolute text-black text-base font-normal font-['Inter']">
             <ul className="list-disc ml-6">
-              {currentCard.Words.map((word, wordIndex) => (
+              {currentCard.Words.map((word:string, wordIndex:number) => (
                 
                 <li key={wordIndex}>{word}</li>
               ))}
@@ -51,8 +46,6 @@ export default function Card({ cards }: CardProps) {
           </div>
         </div>
       </div>
-
-      {/* Navigation buttons */}
       <div className="bottom-[25px] text-black text-[19px] font-bold font-['Inter'] text-right absolute w-full">
         <button
           onClick={handleBack}

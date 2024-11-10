@@ -17,7 +17,7 @@ const RulesPage: React.FC = () => {
         />
       </Head>
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-4">Taboo Card Game Rules</h1>
+        <h1 className="mt-56 mb-20 text-4xl text-[#2E51ED] font-bold">Taboo Card <br/> Game Rules</h1>
         <p className="mb-6 italic">
           Welcome to the wonderfully wacky world of Taboo! Get ready to test your quick thinking and vocabulary skills while avoiding the dreaded forbidden words. Whether you&apos;re a seasoned wordsmith or just looking for a fun way to spend an evening, Taboo is the perfect game to get everyone laughing and thinking on their feet.
         </p>
