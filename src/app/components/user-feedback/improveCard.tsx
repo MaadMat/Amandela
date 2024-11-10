@@ -142,6 +142,7 @@ ImproveCardForm.propTypes = {
     "category": PropTypes.string,
     "Words": PropTypes.arrayOf(PropTypes.string),
   }),
+  closePanel:PropTypes.func
 };
 
 export default ImproveCardForm;
