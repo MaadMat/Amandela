@@ -6,30 +6,24 @@ export default function JoinTeamForm() {
   const [secondName, setSecondName] = useState('');
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('');
-  const [cv, setCv] = useState(null);
+  const [cv, setCv] = useState<string | null>(null);
 
-  const handleFormSubmit = async (e: { preventDefault: () => void; }) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    
     if (!cv) {
       alert("Please upload your CV.");
       return;
     }
+    
 
-    // Prepare form data for file upload
-    const formData = new FormData();
-    formData.append('firstName', firstName);
-    formData.append('secondName', secondName);
-    formData.append('email', email);
-    formData.append('role', role);
-    formData.append('cv', cv);
 
     // Send form data to API
-    const res = await fetch('/api/joinTeam', {
+    const res = await fetch('/api/career', {
       method: 'POST',
-      body: formData,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({firstName,secondName,email,role,cv}),
     });
-
     if (res.ok) {
       alert('Application submitted successfully!');
       // Clear the form fields
@@ -42,18 +36,29 @@ export default function JoinTeamForm() {
       alert('Failed to submit application.');
     }
   };
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleCvChange = (e:any) => {
-    const file = e.target.files[0];
+  
+  const handleCvChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    
     if (file && file.type === 'application/pdf') {
-      setCv(file);
+      const reader = new FileReader();
+  
+      reader.onloadend = () => {
+        // Get the base64 string
+        const base64String = reader.result as string;
+        
+        // Update state with the base64 encoded PDF
+        setCv(base64String);
+      };
+  
+      // Read the file as a data URL (base64)
+      reader.readAsDataURL(file);
     } else {
       alert('Please upload a PDF file.');
-      e.target.value = null; // Clear the input if the file is not a PDF
+      e.target.value = ''; // Clear the input if the file is not a PDF
     }
   };
-
+  
   return (
     <div className='px-5 w-full'>
       <section>
@@ -61,26 +66,14 @@ export default function JoinTeamForm() {
           JOIN OUR TEAM
         </h1>
         <p className='w-[85%] mx-5'>
-        Passionate about creating memorable experiences and bringing people together through games? Join our team and be part of a growing community of innovators, designers, and game enthusiasts! 
-        <br />
-          <br />
-        We’re looking for creative minds who are excited to shape the future of card games, from crafting unique content to refining gameplay and building engaging digital experiences
-          <br />
-          <br />
-
-Please note that all positions are currently unpaid, but this is a great opportunity to gain experience, contribute to something meaningful, and grow alongside a dedicated team.
-
-<br />
-          <br />
-          At Amandela, we believe in a collaborative environment where every voice matters and ideas can thrive. If you’re ready to make an impact, bring your unique skills, and grow with us, we’d love to hear from you!
-<br />
-<br />
-          We look forward to reviewing your application!
+          {/* Introduction text */}
         </p>
       </section>
 
       <form onSubmit={handleFormSubmit} className="join-team-form flex flex-col mt-20 w-[85%] mx-5">
+        {/* Input Fields */}
         <div className='border-solid border mb-7 h-14 w-10/12'>
+      
           <input
             type="text"
             value={firstName}
@@ -126,21 +119,22 @@ Please note that all positions are currently unpaid, but this is a great opportu
 
         <div className='border-solid border mb-7 h-14 w-10/12'>
           <label htmlFor="Upload CV">
-             CV
-          <input
-
-type="file"
-accept=".pdf"
-name='Upload CV'
-placeholder='Uplaod CV'
-onChange={handleCvChange}
-className='w-full h-full p-4'
-required
-/>
-</label>
+            CV
+            <input
+              type="file"
+              accept=".pdf"
+              name="cv"  // Ensure this matches the backend field name
+              placeholder='Upload CV'
+              onChange={handleCvChange}
+              className='w-full h-full p-4'
+              required
+            />
+          </label>
         </div>
 
-        <button type="submit" className='bg-[#C812FF] w-24 h-10 text-white font-medium m-auto mb-32'>Submit</button>
+        <button type="submit" className='bg-[#C812FF] w-24 h-10 text-white font-medium m-auto mb-32'>
+          Submit
+        </button>
       </form>
     </div>
   );

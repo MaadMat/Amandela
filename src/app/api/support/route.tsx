@@ -6,7 +6,6 @@ export async function POST(request: Request) {
     const client = await clientPromises();
     const db = client.db('userFeedback');
     const cardData = await request.json();
-    console.log(cardData)
     const result = await db.collection('supportTickets').insertOne(cardData);
     return new Response(JSON.stringify(result), {
       status: 201,
