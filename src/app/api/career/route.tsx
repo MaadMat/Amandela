@@ -16,7 +16,6 @@ export async function POST(request: Request) {
     const formData = await request.json()
     // Save to MongoDB
     const result = await db.collection('careerRequest').insertOne(formData);
-console.log(formData.cv)
     return new Response(JSON.stringify(result), {
       status: 201,
       headers: { 'Content-Type': 'application/json' },

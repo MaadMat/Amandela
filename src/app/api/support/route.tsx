@@ -5,8 +5,8 @@ export async function POST(request: Request) {
   try {
     const client = await clientPromises();
     const db = client.db('userFeedback');
-    const cardData = await request.json();
-    const result = await db.collection('supportTickets').insertOne(cardData);
+    const support= await request.json();
+    const result = await db.collection('supportTickets').insertOne(support);
     return new Response(JSON.stringify(result), {
       status: 201,
       headers: { 'Content-Type': 'application/json' },
