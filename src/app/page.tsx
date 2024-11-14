@@ -1,7 +1,6 @@
 "use client";
 import Card from "./components/cardComponent";
 import { useEffect, useState, useRef } from "react";
-import { Analytics } from "@vercel/analytics/react";
 import { getHistory, addHistoryEntry } from "./scripts/History"; // Import from History.ts
 import History from "./components/history";
 import SkeletonCard from "./components/SkeletonCard";
@@ -114,7 +113,6 @@ export default function Home() {
         )}
       <DropdownMenu currentCard={currendEditedCard}/>
       </section>
-      <Analytics />
     </div>
   );
 }
