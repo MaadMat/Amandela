@@ -6,6 +6,7 @@ import {formatDate} from '../scripts/timeFormat'
 type CardType = {
   name: string;
   Words: string[];
+  category:string
 };
 
 type HistoryEntry = {
@@ -29,29 +30,29 @@ export default function History() {
     }));
     setHistory(historyWithTimestamp);
   }, []);
-
+  
   const handleSelectSet = (index: number) => {
     setSelectedSetIndex(index);
   };
-
+  
   const handleBackToHistoryList = () => {
     setSelectedSetIndex(null); // Deselect the card set to show the list again
   };
-
+  
   return (
-    <div className="history-container h-[32rem] overflow-x-hidden">
+    <div className="history-container h-[38rem] overflow-x-hidden">
       
       {/* Show the history list if no card set is selected */}
       {selectedSetIndex === null ? (
         <div className="history-list bg-[#FFFFFD]">
+         
               <div className='flex text-xs w-[80%] justify-around my-4'>
             <p>Name of 1st card</p>
             <p>Time and Date</p>
-            
         </div>
           {history.map((entry, index) => (
             <div
-              key={index}
+            key={index}
               className={`history-set mb-3 p-4 rounded-lg cursor-pointer flex w-full shadow justify-between items-center bg-[#FDFCFF]
                 ${index === selectedSetIndex ? 'bg-gray-200' : 'bg-white'}`}
               onClick={() => handleSelectSet(index)}
