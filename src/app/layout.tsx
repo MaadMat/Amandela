@@ -4,7 +4,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import {  GoogleTagManager } from '@next/third-parties/google'
-import Image from "next/image";
+import Navigation from "./components/navigationBar";
+
 
 // Initialize the Inter font
 const inter = Inter({
@@ -33,19 +34,8 @@ export default function RootLayout({
         <link rel="canonical" href="https://amandela-iut8.vercel.app/" />
       </head>
       <body className={`${inter.className} antialiased  custom:bg-slate-100 bg-[#f2f2f2]`}>
-      <nav className="flex justify-between absolute top-0 left-0 w-full">
-        <a href="https://amandela-iut8.vercel.app/">
-<Image src={'/amandela.svg'} alt="amandela Logo" loading="eager" title="amandela logo" className="px-5" width={98} height={98} />
-        </a>
-        <div className="flex justify-around content-center  mt-3 text-sm w-[60vw]">
-          <a href="https://amandela-iut8.vercel.app/about" >About</a>
-          <a href="https://amandela-iut8.vercel.app/support" >Support</a>
-          <a href="https://amandela-iut8.vercel.app/updates" >Updates</a>
-          <a href="https://amandela-iut8.vercel.app/rules">Rules</a>
-        </div>
-      </nav>
+        <Navigation/>
         {children}
-
         <SpeedInsights />
       </body>
 

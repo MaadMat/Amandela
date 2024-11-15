@@ -1,7 +1,7 @@
 /* eslint-disable prefer-rest-params */
 
 type CardHistory = {
-  set: { name: string; Words: string[] }[]; // Each history entry is an array of cards
+  set: { name: string; Words: string[], category:string }[]; // Each history entry is an array of cards
   timestamp: string; // Changed to string to match the format used in the original code
 };
 

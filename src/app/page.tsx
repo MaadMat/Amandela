@@ -6,6 +6,7 @@ import History from "./components/history";
 import SkeletonCard from "./components/SkeletonCard";
 import DropdownMenu from "./components/supportPanel"
 
+
 type CardType = {
   name: string;
   Words: string[];
@@ -19,11 +20,11 @@ export default function Home() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [history, setHistory] = useState<CardType[][]>([]); 
   const [showHistory, setShowHistory] = useState(false);
-  const [currendEditedCard, setCurrentEditCard]= useState<CardType[]>([])
+  const [currentEditCard, setCurrentEditCard]= useState<CardType[]>([])
   const cardRef = useRef<HTMLDivElement>(null);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const getCurrentEditedCard = (card:any)=>{
+  function getCurrentEditedCard(card:any){
     setCurrentEditCard(card)
 
   }
@@ -73,26 +74,26 @@ export default function Home() {
   };
 
   return (
-    <div className="container flex flex-col justify-between w-screen items-center bg-[url('./images/amandela_taboo_card_game.webp')] bg-cover bg-center h-screen custom:bg-none">
+    <div className="container flex flex-col justify-between w-screen items-center bg-[url('./images/amandela_taboo_card_game.webp')] bg-cover bg-center h-[105vh] custom:bg-none">
     
 
-      <section className="flex flex-col justify-center items-center w-[100vw] h-[85vh]">
-        <h1 className="mt-16 mb-16 text-sm font-bold">TABOO</h1>
-
+      <section className="flex flex-col justify-center items-center w-[100vw] h-[85vh] mt-">
+        <h1 className="text-sm font-bold">TABOO</h1>
+       
         <div ref={cardRef}>
-          {randomCards.length > 0 ? <Card cards={randomCards} setCurrentEditCard= {getCurrentEditedCard} /> : <SkeletonCard/>}
+          {randomCards.length > 0 ? <Card cards={randomCards} getCurrentEditedCard= {getCurrentEditedCard} /> : <SkeletonCard/>}
         </div>
 
         <div className="flex mt-10 space-x-4">
           <button
             onClick={handleNewSet}
-            className="bg-[#281b1b] font-bold text-white rounded-[18px] border-solid border w-24 h-[2.5rem] text-sm"
+            className="bg-[#281b1b] font-bold text-white rounded-[18px] border-solid border w-20 h-[2.0rem] text-sm"
           >
             New Set
           </button>
           <button
             onClick={toggleHistory}
-            className="bg-white font-bold text-[#281b1b] rounded-[18px] border-solid border border-black w-24 h-[2.5rem] text-sm"
+            className="bg-white font-bold text-[#281b1b] rounded-[18px] border-solid border border-black w-20 h-[2.0rem] text-sm"
           >
             {showHistory ? "Hide History" : "History"}
           </button>
@@ -111,7 +112,7 @@ export default function Home() {
            
           </div>
         )}
-      <DropdownMenu currentCard={currendEditedCard}/>
+      <DropdownMenu currentCard={currentEditCard}/>
       </section>
     </div>
   );

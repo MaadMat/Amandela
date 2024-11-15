@@ -12,15 +12,15 @@ const DropdownMenu = (children:any) => {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <div className="relative">
+    <div className="relative ">
       <button
         onClick={toggleMenu}
-        className="bg-gray-800 text-white rounded-full focus:outline-none absolute left-[135px] h-[37px] w-[37px]"
+        className="bg-gray-800 text-white rounded-full focus:outline-none absolute left-[135px] top-[-20px] h-[30px] w-[30px] shadow-md"
       >
         <p className="text-xl " >?</p>
       </button>
       {isOpen && (
-        <div className="absolute right-0 bg-gray-800 rounded-lg shadow-lg min-w-[200px] p-3 z-10 left-[-28px] top-[-250px]">
+        <div className="absolute right-0 bg-gray-800 rounded-lg shadow-lg min-w-[200px] p-3 z-10 left-[-28px] top-[-265px]">
           <ul>
             <li  key={1} ><button onClick={()=> setSuggestOpen(true)} className="text-white text-[14px] hover:text-gray-300">Suggest Card</button></li>
             <li  key={2} ><a href="https://amandela-iut8.vercel.app/user-feedback/general-feedback" className="text-white text-[14px] hover:text-gray-300">General Suggestions</a></li>
