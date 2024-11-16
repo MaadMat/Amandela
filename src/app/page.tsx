@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { getHistory, addHistoryEntry } from "./scripts/History"; // Import from History.ts
 import History from "./components/history";
 import SkeletonCard from "./components/SkeletonCard";
-import DropdownMenu from "./components/supportPanel"
+import DropdownMenu from "./components/supportPanel";
 
 
 type CardType = {
@@ -35,7 +35,10 @@ export default function Home() {
 
   useEffect(() => {
     const fetchCards = async () => {
-      const response = await fetch('/api/cards', { cache: 'force-cache' });
+      const response = await fetch('/api/cards', {
+        cache:"force-cache" , // Ensures fresh data every time
+      });
+      
       const data: CardType[] = await response.json();
       setCards(data);
 

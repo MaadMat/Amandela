@@ -1,8 +1,16 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
+
+interface ImproveCardFormProps {
+  currentCard?: {
+    name?: string;
+    category?: string;
+    Words?: string[];
+  };
+  closePanel?(...args: unknown[]): unknown;
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const ImproveCardForm = (children: any) => {
+const ImproveCardForm = (children: ImproveCardFormProps) => {
   const currentCard = children.currentCard;
 
   // Initialize form fields with current card data if provided
@@ -35,7 +43,7 @@ const ImproveCardForm = (children: any) => {
 
   // Send data to the API
   const submitForm = async () => {
-    const data = { name, category, Words: forbiddenWords.filter((word:string) => word) };
+    const data = { name, category, Words: forbiddenWords.filter((word: string) => word) };
 
     try {
       const response = await fetch('/api/user-feedback/improveCard', {
@@ -52,7 +60,8 @@ const ImproveCardForm = (children: any) => {
         setName('');
         setCategory('Animals');
         setForbiddenWords(['', '', '']);
-        children.closePanel(); // Close the modal on successful submission
+        // Safely invoke closePanel
+        children.closePanel?.();
       } else {
         alert('Failed to send suggestion.');
       }
@@ -66,7 +75,7 @@ const ImproveCardForm = (children: any) => {
     <div>
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div className="bg-gray-900 p-6 rounded-lg shadow-lg max-w-md mx-auto relative h-[70vh] overflow-scroll mt-16 w-[90vw]">
-          <button onClick={() => children.closePanel()} className="text-gray-400 hover:text-gray-300 absolute top-4 right-4">
+          <button onClick={() => children.closePanel?.()} className="text-gray-400 hover:text-gray-300 absolute top-4 right-4">
             x
           </button>
 
@@ -122,7 +131,7 @@ const ImproveCardForm = (children: any) => {
           </button>
 
           <div className="flex justify-end space-x-3 mt-6">
-            <button onClick={() => children.closePanel()} className="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700">
+            <button onClick={() => children.closePanel?.()} className="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700">
               Cancel
             </button>
             <button onClick={submitForm} className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
@@ -133,16 +142,6 @@ const ImproveCardForm = (children: any) => {
       </div>
     </div>
   );
-};
-
-// Define PropTypes for the component
-ImproveCardForm.propTypes = {
-  currentCard: PropTypes.shape({
-    "name": PropTypes.string,
-    "category": PropTypes.string,
-    "Words": PropTypes.arrayOf(PropTypes.string),
-  }),
-  closePanel:PropTypes.func
 };
 
 export default ImproveCardForm;
