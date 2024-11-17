@@ -5,8 +5,6 @@ import { getHistory, addHistoryEntry } from "./scripts/History"; // Import from 
 import History from "./components/history";
 import SkeletonCard from "./components/SkeletonCard";
 import DropdownMenu from "./components/supportPanel";
-import { SpeedInsights } from '@vercel/speed-insights/next';
-import {  GoogleTagManager } from '@next/third-parties/google'
 
 type CardType = {
   name: string;
@@ -118,8 +116,7 @@ export default function Home() {
         )}
       <DropdownMenu currentCard={currentEditCard}/>
       </section>
-      <SpeedInsights />
-      <GoogleTagManager gtmId="GTM-W6D3H6VB"/>
+    
     </div>
   );
 }
