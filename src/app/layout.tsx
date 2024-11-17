@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import {  GoogleTagManager } from '@next/third-parties/google'
+import {  GoogleTagManager, GoogleAnalytics } from '@next/third-parties/google'
 import Navigation from "./components/navigationBar";
 
 // Initialize the Inter font
@@ -38,6 +38,7 @@ export default function RootLayout({
         {children}
         
       </body>
+      <GoogleAnalytics gaId="G-MHB18TXZWC"/>
       <SpeedInsights/>
       <Analytics/>
       <GoogleTagManager gtmId="GTM-W6D3H6VB"/>
