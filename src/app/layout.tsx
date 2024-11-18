@@ -31,12 +31,12 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta httpEquiv="Content-Type" content="text/html;charset=UTF-8" />
         <meta name="google-site-verification" content="bRft9M9ZYq4O01A6mf0uDqk2V7C3rA7_NNLl0a6WUWI" />
+
         <link rel="canonical" href="https://amandela-iut8.vercel.app/" />
       </head>
       <body className={`${inter.className} antialiased  custom:bg-slate-100 bg-[#f2f2f2]`}>
         <Navigation/>
         {children}
-        
       </body>
       <GoogleAnalytics gaId="G-MHB18TXZWC"/>
       <SpeedInsights/>

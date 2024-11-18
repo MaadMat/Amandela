@@ -5,7 +5,7 @@ import { getHistory, addHistoryEntry } from "./scripts/History"; // Import from 
 import History from "./components/history";
 import SkeletonCard from "./components/SkeletonCard";
 import DropdownMenu from "./components/supportPanel";
-
+import Clarity from '@microsoft/clarity';
 type CardType = {
   name: string;
   Words: string[];
@@ -21,18 +21,19 @@ export default function Home() {
   const [showHistory, setShowHistory] = useState(false);
   const [currentEditCard, setCurrentEditCard]= useState<CardType[]>([])
   const cardRef = useRef<HTMLDivElement>(null);
-
+  
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function getCurrentEditedCard(card:any){
     setCurrentEditCard(card)
-
+    
   }
   const getRandomUniqueCards = (cardsArray: CardType[], numCards: number): CardType[] => {
     const shuffled = [...cardsArray].sort(() => 0.5 - Math.random());
     return shuffled.slice(0, numCards);
   };
-
+  
   useEffect(() => {
+    Clarity.init('opbfflebom');
     const fetchCards = async () => {
       const response = await fetch('/api/cards', {
         cache:"force-cache" , // Ensures fresh data every time
