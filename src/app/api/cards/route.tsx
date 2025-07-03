@@ -6,7 +6,7 @@ export async function GET() {
   try {
     const client = await clientPromises();
     const db = client.db('Taboo'); // Your database name
-    const cards = await db.collection('Cards').find({}).toArray();
+    const cards = await db.collection('cards').find({}).toArray();
     return new Response(JSON.stringify(cards), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
