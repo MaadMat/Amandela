@@ -5,7 +5,7 @@ import { getHistory, addHistoryEntry } from "./scripts/History"; // Import from 
 import History from "./components/history";
 import SkeletonCard from "./components/SkeletonCard";
 import DropdownMenu from "./components/supportPanel";
-import Clarity from '@microsoft/clarity';
+
 type CardType = {
   name: string;
   Words: string[];
@@ -33,7 +33,7 @@ export default function Home() {
   };
   
   useEffect(() => {
-    Clarity.init('opbfflebom');
+   
     const fetchCards = async () => {
       const response = await fetch('/api/cards', {
         cache:"force-cache" , // Ensures fresh data every time
