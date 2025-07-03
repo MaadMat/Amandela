@@ -7,4 +7,4 @@ const Cards = new mongoose.Schema({
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Cards' }]
 });
 
-export default mongoose.models.Author || mongoose.model('Cards', Cards);
+export default mongoose.models.Author || mongoose.model('cards', Cards);
